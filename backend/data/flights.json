@@ -1,0 +1,143 @@
+[
+    {
+        "id": "FLY-1001",
+        "flightNumber": "FY1001",
+        "airline": "Flyee Airways",
+        "from": "CAI",
+        "fromName": "Cairo International Airport",
+        "fromCountry": "Egypt",
+        "to": "JED",
+        "toName": "King Abdulaziz International Airport",
+        "toCountry": "Saudi Arabia",
+        "date": "2025-11-01",
+        "depart": "08:20",
+        "arrive": "10:05",
+        "duration": "1h45m",
+        "stops": 0,
+        "aircraft": "A320",
+        "price": 130,
+        "seatsRemaining": 8,
+        "amenities": [
+            "20kg baggage",
+            "Free snack",
+            "Priority boarding"
+        ]
+    },
+    {
+        "id": "FLY-1002",
+        "flightNumber": "FY1002",
+        "airline": "Flyee Airways",
+        "from": "CAI",
+        "fromName": "Cairo International Airport",
+        "fromCountry": "Egypt",
+        "to": "RUH",
+        "toName": "King Khalid International Airport",
+        "toCountry": "Saudi Arabia",
+        "date": "2025-11-01",
+        "depart": "09:30",
+        "arrive": "12:00",
+        "duration": "2h30m",
+        "stops": 0,
+        "aircraft": "B737",
+        "price": 180,
+        "seatsRemaining": 3,
+        "amenities": [
+            "25kg baggage",
+            "In-flight entertainment"
+        ]
+    },
+    {
+        "id": "FLY-1003",
+        "flightNumber": "FY2001",
+        "airline": "SkyMosaic",
+        "from": "CAI",
+        "fromName": "Cairo International Airport",
+        "fromCountry": "Egypt",
+        "to": "DXB",
+        "toName": "Dubai International Airport",
+        "toCountry": "United Arab Emirates",
+        "date": "2025-11-02",
+        "depart": "14:15",
+        "arrive": "18:00",
+        "duration": "3h45m",
+        "stops": 0,
+        "aircraft": "A321neo",
+        "price": 260,
+        "seatsRemaining": 12,
+        "amenities": [
+            "30kg baggage",
+            "Meals",
+            "Wi-Fi"
+        ]
+    },
+    {
+        "id": "FLY-1004",
+        "flightNumber": "FY3005",
+        "airline": "RedWing",
+        "from": "LHR",
+        "fromName": "London Heathrow",
+        "fromCountry": "United Kingdom",
+        "to": "CAI",
+        "toName": "Cairo International Airport",
+        "toCountry": "Egypt",
+        "date": "2025-11-03",
+        "depart": "07:25",
+        "arrive": "14:20",
+        "duration": "5h55m",
+        "stops": 0,
+        "aircraft": "B787",
+        "price": 520,
+        "seatsRemaining": 4,
+        "amenities": [
+            "Lounge access",
+            "Meals",
+            "Extra legroom"
+        ]
+    },
+    {
+        "id": "FLY-1005",
+        "flightNumber": "FY4002",
+        "airline": "Flyee Airways",
+        "from": "JED",
+        "fromName": "King Abdulaziz International Airport",
+        "fromCountry": "Saudi Arabia",
+        "to": "CAI",
+        "toName": "Cairo International Airport",
+        "toCountry": "Egypt",
+        "date": "2025-11-01",
+        "depart": "18:00",
+        "arrive": "19:35",
+        "duration": "1h35m",
+        "stops": 0,
+        "aircraft": "A320",
+        "price": 140,
+        "seatsRemaining": 6,
+        "amenities": [
+            "20kg baggage",
+            "Snack"
+        ]
+    },
+    {
+        "id": "FLY-1006",
+        "flightNumber": "FY5009",
+        "airline": "AirCleo",
+        "from": "CAI",
+        "fromName": "Cairo International Airport",
+        "fromCountry": "Egypt",
+        "to": "IST",
+        "toName": "Istanbul Airport",
+        "toCountry": "Turkey",
+        "date": "2025-11-05",
+        "depart": "06:50",
+        "arrive": "10:20",
+        "duration": "2h30m",
+        "stops": 0,
+        "aircraft": "A330",
+        "price": 310,
+        "seatsRemaining": 16,
+        "amenities": [
+            "Meals",
+            "In-flight entertainment"
+        ]
+    }
+]
