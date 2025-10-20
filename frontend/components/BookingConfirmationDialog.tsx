@@ -1,4 +1,3 @@
-// frontend/components/BookingConfirmationDialog.tsx
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, X } from 'lucide-react';
@@ -46,7 +45,7 @@ export default function BookingConfirmationDialog({
                         <div className="flex flex-col items-center text-center">
                             <CheckCircle2 className="w-12 h-12 text-green-500 mb-4" />
                             <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                                Booking Confirmed! 🎉
+                                Booking Confirmed!
                             </h3>
                             <p className="text-sm text-gray-600 mb-6">
                                 Your reservation has been successfully completed.
