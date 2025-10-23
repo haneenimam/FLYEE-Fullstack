@@ -15,12 +15,20 @@ app.use(express.json());
 
 const flightsPath = path.join(process.cwd(), 'data', 'flights.json');
 let flights = [];
-try {
-  const raw = fs.readFileSync(flightsPath, 'utf8');
-  flights = JSON.parse(raw);
-  console.log(`Loaded ${flights.length} flights from data/flights.json`);
-} catch (err) {
-  console.warn('Could not load flights.json, starting with empty flights list');
+
+if (fs.existsSync(flightsPath)) {
+  try {
+    const raw = fs.readFileSync(flightsPath, 'utf8');
+    flights = JSON.parse(raw);
+    console.log(`Loaded ${flights.length} flights from data/flights.json`);
+  } catch (err) {
+    console.error('Error parsing flights.json:', err.message);
+    flights = [];
+  }
+} else {
+  console.error('flights.json not found at:', flightsPath);
+  console.error('Current working directory:', process.cwd());
+  console.error('Available files:', fs.readdirSync(process.cwd()));
   flights = [];
 }
 
