@@ -1,61 +1,55 @@
-import express from 'express';
-import cors from 'cors';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import { v4 as uuidv4 } from 'uuid';
-import { body, validationResult } from 'express-validator';
-import dotenv from 'dotenv';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
+import express from "express";
+import cors from "cors";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const corsOptions = {
-    origin: (origin, callback) => { callback(null, true); },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    credentials: true,
-};
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 
-const flightsPath = path.join(__dirname, 'data', 'flights.json');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+const flightsPath = path.join(__dirname, "data", "flights.json");
 let flights = [];
 
-if (fs.existsSync(flightsPath)) {
-  try {
-    const raw = fs.readFileSync(flightsPath, 'utf8');
+try {
+  if (fs.existsSync(flightsPath)) {
+    const raw = fs.readFileSync(flightsPath, "utf8");
     flights = JSON.parse(raw);
-    console.log(`Loaded ${flights.length} flights from ${flightsPath}`);
-  } catch (err) {
-    console.error('Error parsing flights.json:', err.message);
-    flights = [];
+    console.log(`Loaded ${flights.length} flights from data/flights.json`);
+  } else {
+    console.error("flights.json not found at:", flightsPath);
   }
-} else {
-  console.error('flights.json NOT FOUND at expected path:', flightsPath);
+} catch (err) {
+  console.error("Error reading flights.json:", err.message);
   flights = [];
 }
 
-let bookings = [];
+app.get("/api/health", (req, res) => {
+  res.json({ success: true, message: "API running", time: new Date().toISOString() });
+});
 
-app.get('/api/flights', (req, res) => {
+app.get("/api/flights", (req, res) => {
   try {
-    if (flights.length === 0) {
-        return res.json({ success: true, data: [], count: 0 });
-    }
-
     const {
-      from, to, fromCountry, toCountry, date, q, minPrice, maxPrice, limit,
+      from,
+      to,
+      fromCountry,
+      toCountry,
+      date,
+      q,
+      minPrice,
+      maxPrice,
+      limit,
     } = req.query;
 
-    let results = flights.slice();
-
+    let results = [...flights];
     const origin = fromCountry || from;
     const destination = toCountry || to;
 
@@ -73,14 +67,9 @@ app.get('/api/flights', (req, res) => {
           f.to?.toLowerCase().includes(destination.toLowerCase())
       );
 
-    if (date)
-      results = results.filter((f) => f.date === String(date));
-
-    if (minPrice)
-      results = results.filter((f) => f.price >= Number(minPrice));
-
-    if (maxPrice)
-      results = results.filter((f) => f.price <= Number(maxPrice));
+    if (date) results = results.filter((f) => f.date === String(date));
+    if (minPrice) results = results.filter((f) => f.price >= Number(minPrice));
+    if (maxPrice) results = results.filter((f) => f.price <= Number(maxPrice));
 
     if (q) {
       const qLower = q.toLowerCase();
@@ -96,32 +85,28 @@ app.get('/api/flights', (req, res) => {
     const limited = limit ? results.slice(0, Number(limit)) : results;
     res.json({ success: true, data: limited, count: limited.length });
   } catch (error) {
-    console.error('GET /api/flights error:', error);
-    res
-      .status(500)
-      .json({ success: false, message: 'Failed to fetch flights', error: error.message });
+    console.error("GET /api/flights error:", error);
+    res.status(500).json({ success: false, message: "Failed to fetch flights", error: error.message });
   }
 });
 
-app.get('/api/flights/:id', (req, res) => {
+app.get("/api/flights/:id", (req, res) => {
   try {
     const flight =
       flights.find((f) => f.id === req.params.id || f.flightNumber === req.params.id) || null;
-    if (!flight) return res.status(404).json({ success: false, message: 'Flight not found' });
+    if (!flight) return res.status(404).json({ success: false, message: "Flight not found" });
     res.json({ success: true, data: flight });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Failed to fetch flight', error: error.message });
+    res.status(500).json({ success: false, message: "Failed to fetch flight", error: error.message });
   }
 });
 
-app.get('/api/health', (req, res) => {
-  res.json({ success: true, message: 'API running', time: new Date().toISOString() });
+app.use((req, res) => {
+  res.status(404).json({ success: false, message: "Route not found" });
 });
-
-app.use((req, res) => res.status(404).json({ success: false, message: 'Route not found' }));
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`✅ Server running on port ${PORT}`);
 });
 
-module.exports = app;
+export default app;
